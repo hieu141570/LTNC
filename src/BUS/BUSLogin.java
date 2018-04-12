@@ -1,0 +1,20 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package BUS;
+
+import DAL.LoginConnUtils;
+import OBJECT.Login;
+
+/**
+ *
+ * @author Hieu
+ */
+public class BUSLogin {
+    LoginConnUtils dal = new LoginConnUtils();
+    public boolean checkLogin(Login l){
+        return dal.checkLogin(l.getUser(), l.getPasswd());
+    }
+}

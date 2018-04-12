@@ -5,8 +5,8 @@
  */
 package quanlyphongkham;
 
-import DAL.bacSiConnUtils;
-import OBJECT.bacSi;
+import DAL.BacSiConnUtils;
+import OBJECT.BacSi;
 import java.util.ArrayList;
 import java.util.List;
 
