@@ -4,12 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/F/Java/QuanLyPhongKham/src/DAL/LoginConnUtils.java</file>
-            <file>file:/D:/F/Java/QuanLyPhongKham/src/PRE/LoginForm.java</file>
-            <file>file:/D:/F/Java/QuanLyPhongKham/src/BUS/BUSBacSi.java</file>
-            <file>file:/D:/F/Java/QuanLyPhongKham/src/DAL/KhoaConnUtils.java</file>
-            <file>file:/D:/F/Java/QuanLyPhongKham/src/DAL/BacSiConnUtils.java</file>
+            <file>file:/D:/F/Java/QuanLyPhongKham/src/BUS/BUSLogin.java</file>
+            <file>file:/D:/F/Java/QuanLyPhongKham/src/DAL/BenhNhanConnUtils.java</file>
+            <file>file:/D:/F/Java/QuanLyPhongKham/src/DAL/ThongTinConnUtils.java</file>
             <file>file:/D:/F/Java/QuanLyPhongKham/src/PRE/MainForm.java</file>
-            <file>file:/D:/F/Java/QuanLyPhongKham/src/OBJECT/BacSi.java</file>
         </group>
     </open-files>
 </project-private>

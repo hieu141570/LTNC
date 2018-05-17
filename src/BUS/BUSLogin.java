@@ -17,4 +17,10 @@ public class BUSLogin {
     public boolean checkLogin(Login l){
         return dal.checkLogin(l.getUser(), l.getPasswd());
     }
+    public void add(Login l){
+        dal.add(l.getUser(), l.getPasswd(), l.getLevel());
+    }
+    public int getMaxID(){
+        return dal.getMaxID();
+    }
 }

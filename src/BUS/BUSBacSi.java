@@ -16,10 +16,10 @@ import java.util.ArrayList;
 public class BUSBacSi {
     BacSiConnUtils dal = new BacSiConnUtils();
     public void add(BacSi bs){
-        dal.add(bs.getMaBS(), bs.getHoTenBS(),bs.getAge(), bs.getAddr(), bs.getPhoneNumber(), bs.getEmail(), bs.getMaKhoa(), bs.getGioiTinh(), bs.getTrinhDo());
+        dal.add(bs.getLogin_ID(), bs.getThongTinID(), bs.getMakhoa(), bs.getTrinhDo());
     }
     public void edit(BacSi bs){
-        dal.edit(bs.getMaBS(), bs.getHoTenBS(), bs.getAge(), bs.getAddr(), bs.getPhoneNumber(), bs.getEmail(), bs.getGioiTinh(), bs.getMaKhoa(), bs.getTrinhDo());
+        dal.edit(bs.getMaBS(), bs.getLogin_ID(), bs.getThongTinID(), bs.getMakhoa(), bs.getTrinhDo());
     }
     public void delete(BacSi bs){
         dal.delete(bs.getMaBS());
@@ -29,5 +29,8 @@ public class BUSBacSi {
     }
     public ArrayList<BacSi> getDataSource(){
         return dal.getDataSource();
+    }
+    public String getMaKhoa(int maBS){
+        return dal.getMaKhoa(maBS);
     }
 }

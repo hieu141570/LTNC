@@ -23,12 +23,13 @@ public class LoginConnUtils {
     public static Connection getLoginConnection() throws SQLException, ClassNotFoundException{
         return MySQLConnUtils.getMySQLConnection();
     }
-    public void add(int ID, String user, String password){
+    public void add(String user, String password, int level){
         try{
-            String sql = "insert into phongkham.tbl_login (ID, user, password) values('" + ID + "','" + user + "','" + password + "')";
+            String sql = "insert into phongkham.tbl_login (ID, user, password, level) values('" + user + "','" + password + "', '" + level + "')";
             Connection conn = getLoginConnection();
             Statement st = conn.createStatement();
             st.executeUpdate(sql);
+            conn.close();
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.toString(), "Error", 0);
@@ -40,6 +41,7 @@ public class LoginConnUtils {
             Connection conn = getLoginConnection();
             Statement st = conn.createStatement();
             st.executeUpdate(sql);
+            conn.close();
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.toString(), "Error", 0);
@@ -92,6 +94,23 @@ public class LoginConnUtils {
             Logger.getLogger(LoginConnUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return chk;
+    }
+    public int getMaxID(){
+        int maxID = 0;
+        String sql = "select max(ID) from phongkham.tbl_login";
+        try{
+            Connection conn = getLoginConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                maxID = rs.getInt("id");
+            }
+            conn.close();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.toString(), "Lấy maxID lỗi", 0);
+        }
+        return maxID;
     }
     
 }

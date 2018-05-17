@@ -13,6 +13,7 @@ public class Login {
     private int id;
     private String user;
     private String passwd;
+    private int level;
 
     /**
      * @return the id
@@ -54,5 +55,19 @@ public class Login {
      */
     public void setPasswd(String passwd) {
         this.passwd = passwd;
+    }
+
+    /**
+     * @return the level
+     */
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     * @param level the level to set
+     */
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

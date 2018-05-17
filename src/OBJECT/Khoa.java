@@ -10,22 +10,22 @@ package OBJECT;
  * @author Hieu
  */
 public class Khoa {
-    private int maKhoa;
+    private int ID;
     private String tenKhoa;
-    private String chucNang;
+    private String maKhoa;
 
     /**
-     * @return the maKhoa
+     * @return the ID
      */
-    public int getMaKhoa() {
-        return maKhoa;
+    public int getID() {
+        return ID;
     }
 
     /**
-     * @param maKhoa the maKhoa to set
+     * @param ID the ID to set
      */
-    public void setMaKhoa(int maKhoa) {
-        this.maKhoa = maKhoa;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     /**
@@ -43,16 +43,17 @@ public class Khoa {
     }
 
     /**
-     * @return the chucNang
+     * @return the maKhoa
      */
-    public String getChucNang() {
-        return chucNang;
+    public String getMaKhoa() {
+        return maKhoa;
     }
 
     /**
-     * @param chucNang the chucNang to set
+     * @param maKhoa the maKhoa to set
      */
-    public void setChucNang(String chucNang) {
-        this.chucNang = chucNang;
+    public void setMaKhoa(String maKhoa) {
+        this.maKhoa = maKhoa;
     }
+
 }

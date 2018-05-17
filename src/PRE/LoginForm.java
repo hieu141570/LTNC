@@ -141,7 +141,7 @@ public class LoginForm extends javax.swing.JFrame {
         l.setUser(txtAcc.getText());
         l.setPasswd(txtPass.getText());
         if(busLogin.checkLogin(l)){
-            this.disable();
+            this.hide();
            mf.show();    
         }
         else

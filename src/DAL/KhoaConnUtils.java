@@ -20,12 +20,11 @@ public class KhoaConnUtils {
     public static Connection getKhoaConnection() throws SQLException, ClassNotFoundException{
         return MySQLConnUtils.getMySQLConnection();
     }
-    public void add(int maKhoa, String tenKhoa, String chucNang){
+    public void add(String tenKhoa, String maKhoa){
         try{
-            String sql = "insert into phongkham.tbl_khoa (maKhoa, tenKhoa, chucNang) values('"
-                    + maKhoa + "','"
-                    + tenKhoa + "','"
-                    + chucNang + "','";
+            String sql = "insert into phongkham.tbl_khoa (tenKhoa, maKhoa) values('"
+                    + tenKhoa + "', '"
+                    + maKhoa + "')";
             Connection conn = getKhoaConnection();
             Statement st = conn.createStatement();
             st.executeQuery(sql);
@@ -34,12 +33,12 @@ public class KhoaConnUtils {
             JOptionPane.showMessageDialog(null, ex, "Add Error", 0, null);
         }
     }
-    public void edit(int maKhoa, String tenKhoa, String chucNang){
+    public void edit(int id, String tenKhoa, String maKhoa){
         try{
             String sql = "update phongkham.tbl_khoa set"
                     + "tenKhoa = '" + tenKhoa + "',"
-                    + "chucNang = '" + chucNang + "'"
-                    + "where maKhoa = '" + maKhoa + "'";
+                    + "chucNang = '" + maKhoa + "'"
+                    + "where maKhoa = '" + id + "'";
             Connection conn = getKhoaConnection();
             Statement st = conn.createStatement();
             st.executeQuery(sql);
@@ -50,7 +49,7 @@ public class KhoaConnUtils {
     }
     public void delete(int maKhoa){
         try{
-            String sql = "delete phongkham.tbl_khoa where maKhoa = '" + maKhoa + "'";
+            String sql = "delete phongkham.tbl_khoa where id = '" + maKhoa + "'";
             Connection conn = getKhoaConnection();
             Statement st = conn.createStatement();
             st.executeQuery(sql);
@@ -61,14 +60,15 @@ public class KhoaConnUtils {
     }
     public String getNameByID(int maKhoa){
         String tenKhoa = "";
-        String sql = "select tenKhoa from phongkham.tbl_khoa where maKhoa = '"+ maKhoa + "'";
+        String sql = "select tenkhoa from phongkham.tbl_khoa where id = '"+ maKhoa + "'";
         try{
             Connection conn = getKhoaConnection();
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                tenKhoa = rs.getString("tenKhoa");
+            if(rs.next()){
+                tenKhoa = rs.getString("tenkhoa");
             }
+            conn.close();
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.toString(), "Error to get Name", 0);

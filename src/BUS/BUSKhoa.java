@@ -15,10 +15,10 @@ import OBJECT.Khoa;
 public class BUSKhoa {
     KhoaConnUtils dal = new KhoaConnUtils();
     public void add(Khoa khoa){
-        dal.add(khoa.getMaKhoa(), khoa.getTenKhoa(), khoa.getChucNang());
+        dal.add(khoa.getTenKhoa(), khoa.getMaKhoa());
     }
     public void edit(Khoa khoa){
-        dal.edit(khoa.getMaKhoa(), khoa.getTenKhoa(), khoa.getChucNang());
+        dal.edit(khoa.getID(), khoa.getTenKhoa(), khoa.getMaKhoa());
     }
     public String getNameByID(int maKhoa){
         return dal.getNameByID(maKhoa);

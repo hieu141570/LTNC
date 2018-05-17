@@ -21,19 +21,14 @@ public class BacSiConnUtils {
     public static Connection getBacSiConnection() throws SQLException, ClassNotFoundException{
         return MySQLConnUtils.getMySQLConnection();
     }
-    public void add(int maBS, String hoTenBS, int age, String addr, int phoneNumber, String email, int maKhoa, String gioiTinh, String trinhDo){
+    public void add(int loginID, int thongTinID, int maKhoa, String trinhDo){
         try{
             Connection conn = getBacSiConnection();
-            String sql = "insert into phongkham.tbl_bac_si (maBS, hoTenBS, age, address, phonenumber, email, gioiTinh, trinhdo, maKhoa) values ('" 
-                        + maBS + "','"
-                        + hoTenBS + "','"
-                        + age + "','"
-                        + addr + "','"
-                        + phoneNumber + "','"
-                        + email + "','"
-                        + gioiTinh + "','"
-                        + trinhDo + "','"
-                        + maKhoa + "')";
+            String sql = "insert into phongkham.tbl_bac_si (tbl_login_ID, tbl_thongtin_id, trinhdo, tbl_khoa_id) values ('"
+                        + loginID + "', '"
+                        + thongTinID + "', '"
+                        + trinhDo + "', '"
+                        + maKhoa + "');";
             Statement st = conn.createStatement();
             st.executeUpdate(sql);
         }
@@ -41,18 +36,15 @@ public class BacSiConnUtils {
             JOptionPane.showMessageDialog(null, ex.toString(), "Add Doctor Error", 0);
         }
     }
-    public void edit(int maBS, String hoTenBS, int age, String addr, int phoneNumber, String email, String gioiTinh, int maKhoa, String trinhDo){
+    public void edit(int maBS, int loginID, int thongTinID, int maKhoa, String trinhDo){
         try{
             Connection conn = getBacSiConnection();
             String sql = "update phongkham.tbl_bac_si set "
-                        + "hoTenBS = '" + hoTenBS + "',"
-                        + "address = '" + addr + "',"
-                        + "phonenumber = '" + phoneNumber + "',"
-                        + "email = '" + email + "',"
-                        + "gioiTinh = '" + gioiTinh + "',"
-                        + "trinhdo = '" + trinhDo + "'"
-                        + "maKhoa = '" + maKhoa + "',"
-                        + "where maBS = '" + maBS + "'";
+                    + "tbl_login_ID = '" + loginID + "', "
+                    + "tbl_thongtin_id = '" + thongTinID + "', "
+                        + "trinhdo = '" + trinhDo + "', "
+                        + "tb_khoa_maKhoa = '" + maKhoa + "', "
+                        + "where maBS = '" + maBS + "';";
             Statement st = conn.createStatement();
             st.execute(sql);
         }
@@ -72,14 +64,10 @@ public class BacSiConnUtils {
                 bs = new BacSi();
                 bs.setMaBS(rs.getInt("maBS"));
                 //bs.setMaBS(Integer.parseInt(rs.getString("maBS")));
-                bs.setHoTenBS(rs.getString("hoTenBS"));
-                bs.setAge(rs.getInt("age"));
-                bs.setAddr(rs.getString("address"));
-                bs.setPhoneNumber(rs.getInt("phonenumber"));
-                //bs.setPhoneNumber(Integer.parseInt(rs.getString("phonenumber")));
-                bs.setEmail(rs.getString("email"));
-                bs.setGioiTinh(rs.getString("gioiTinh"));
+                bs.setLogin_ID(rs.getInt("tbl_login_ID"));
+                bs.setThongTinID(rs.getInt("tbl_thongtin_id"));
                 bs.setTrinhDo(rs.getString("trinhdo"));
+                bs.setMakhoa(rs.getInt("tbl_khoa_id"));
                 listBS.add(bs);
             }
         }
@@ -98,5 +86,22 @@ public class BacSiConnUtils {
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.toString(), "Delete Doctor Error", 0);
         }
+    }
+    public String getMaKhoa(int maBacSi){
+        String maKhoa = "";
+        String sql = "select tbl_khoa_maKhoa from phongkham.tbl_bac_si where maBS = '" + maBacSi + "';";
+        try{
+            Connection conn = getBacSiConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                maKhoa = rs.getString("tbl_khoa_maKhoa");
+            }
+            conn.close();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.toString(), "Error when get maKhoa", 0);
+        }
+        return maKhoa;
     }
 }

@@ -11,14 +11,10 @@ package OBJECT;
  */
 public class BacSi {
     private int maBS;
-    private String hoTenBS;
-    private int age;
-    private String gioiTinh;
-    private String addr;
-    private int phoneNumber;
-    private String email;
-    private int maKhoa;
+    private int login_ID;
+    private int makhoa;
     private String trinhDo;
+    private int thongTinID;
 
     /**
      * @return the maBS
@@ -35,47 +31,35 @@ public class BacSi {
     }
 
     /**
-     * @return the addr
+     * @return the login_ID
      */
-    public String getAddr() {
-        return addr;
+    public int getLogin_ID() {
+        return login_ID;
     }
 
     /**
-     * @param addr the addr to set
+     * @param login_ID the login_ID to set
      */
-    public void setAddr(String addr) {
-        this.addr = addr;
+    public void setLogin_ID(int login_ID) {
+        this.login_ID = login_ID;
     }
 
     /**
-     * @return the phoneNumber
+     * @return the makhoa
      */
-    public int getPhoneNumber() {
-        return phoneNumber;
+    public int getMakhoa() {
+        return makhoa;
     }
 
     /**
-     * @param phoneNumber the phoneNumber to set
+     * @param makhoa the makhoa to set
      */
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setMakhoa(int makhoa) {
+        this.makhoa = makhoa;
     }
 
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
 
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
+
     /**
      * @return the trinhDo
      */
@@ -91,59 +75,19 @@ public class BacSi {
     }
 
     /**
-     * @return the hoTenBS
+     * @return the thongTinID
      */
-    public String getHoTenBS() {
-        return hoTenBS;
+    public int getThongTinID() {
+        return thongTinID;
     }
 
     /**
-     * @param hoTenBS the hoTenBS to set
+     * @param thongTinID the thongTinID to set
      */
-    public void setHoTenBS(String hoTenBS) {
-        this.hoTenBS = hoTenBS;
+    public void setThongTinID(int thongTinID) {
+        this.thongTinID = thongTinID;
     }
 
-    /**
-     * @return the age
-     */
-    public int getAge() {
-        return age;
-    }
-
-    /**
-     * @param age the age to set
-     */
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    /**
-     * @return the gioiTinh
-     */
-    public String getGioiTinh() {
-        return gioiTinh;
-    }
-
-    /**
-     * @param gioiTinh the gioiTinh to set
-     */
-    public void setGioiTinh(String gioiTinh) {
-        this.gioiTinh = gioiTinh;
-    }
-
-    /**
-     * @return the maKhoa
-     */
-    public int getMaKhoa() {
-        return maKhoa;
-    }
-
-    /**
-     * @param maKhoa the maKhoa to set
-     */
-    public void setMaKhoa(int maKhoa) {
-        this.maKhoa = maKhoa;
-    }
+    
     
 }

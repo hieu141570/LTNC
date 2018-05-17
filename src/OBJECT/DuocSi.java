@@ -9,38 +9,23 @@ package OBJECT;
  *
  * @author Hieu
  */
-public class BenhNhan {
-    private int maBenhNhan;
-    private String ngheNghiep;
+public class DuocSi {
+    private int maDuocSi;
     private int thongTinID;
     private int loginID;
 
     /**
-     * @return the maBenhNhan
+     * @return the maDuocSi
      */
-    public int getMaBenhNhan() {
-        return maBenhNhan;
+    public int getMaDuocSi() {
+        return maDuocSi;
     }
 
     /**
-     * @param maBenhNhan the maBenhNhan to set
+     * @param maDuocSi the maDuocSi to set
      */
-    public void setMaBenhNhan(int maBenhNhan) {
-        this.maBenhNhan = maBenhNhan;
-    }
-
-    /**
-     * @return the ngheNghiep
-     */
-    public String getNgheNghiep() {
-        return ngheNghiep;
-    }
-
-    /**
-     * @param ngheNghiep the ngheNghiep to set
-     */
-    public void setNgheNghiep(String ngheNghiep) {
-        this.ngheNghiep = ngheNghiep;
+    public void setMaDuocSi(int maDuocSi) {
+        this.maDuocSi = maDuocSi;
     }
 
     /**
