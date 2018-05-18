@@ -33,4 +33,7 @@ public class BUSBacSi {
     public String getMaKhoa(int maBS){
         return dal.getMaKhoa(maBS);
     }
+    public BacSi getBacSi(int maBS){
+        return dal.getBacSi(maBS);
+    }
 }

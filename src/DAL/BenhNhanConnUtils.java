@@ -26,7 +26,7 @@ public class BenhNhanConnUtils {
             String sql = "insert into phongkham.tbl_benh_nhan (ngheNghiep, tbl_login_ID, tbl_thongtin_id) values('"
                     + ngheNghiep +"','"
                     + loginID + "','"
-                    + thongTinID + "';";
+                    + thongTinID + "');";
             Connection conn = getBenhNhanConnection();
             Statement st = conn.createStatement();
             st.executeUpdate(sql);

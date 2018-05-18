@@ -25,14 +25,14 @@ public class LoginConnUtils {
     }
     public void add(String user, String password, int level){
         try{
-            String sql = "insert into phongkham.tbl_login (ID, user, password, level) values('" + user + "','" + password + "', '" + level + "')";
+            String sql = "insert into phongkham.tbl_login (user, password, level) values('" + user + "','" + password + "', '" + level + "')";
             Connection conn = getLoginConnection();
             Statement st = conn.createStatement();
             st.executeUpdate(sql);
             conn.close();
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.toString(), "Error", 0);
+            JOptionPane.showMessageDialog(null, ex.toString(), "Error when add this account", 0);
         }
     }
     public void edit(int ID, String user, String password){
@@ -44,7 +44,7 @@ public class LoginConnUtils {
             conn.close();
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.toString(), "Error", 0);
+            JOptionPane.showMessageDialog(null, ex.toString(), "Error when edit this account", 0);
         }
     }
     public void delete(int ID){
@@ -103,7 +103,7 @@ public class LoginConnUtils {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if(rs.next()){
-                maxID = rs.getInt("id");
+                maxID = rs.getInt(1);
             }
             conn.close();
         }
@@ -111,6 +111,42 @@ public class LoginConnUtils {
             JOptionPane.showMessageDialog(null, ex.toString(), "Lấy maxID lỗi", 0);
         }
         return maxID;
+    }
+    public Login getAccount(int ID){
+        Login l = new Login();
+        String sql = "select * from phongkham.tbl_login where ID = '" + ID + "';";
+        try{
+            Connection conn = getLoginConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                l.setUser(rs.getString("user"));
+                l.setPasswd(rs.getString("password"));
+                l.setId(rs.getInt("ID"));
+            }
+            conn.close();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.toString(), "Error when get this account", 0);
+        }
+        return l;
+    }
+    public int phanQuyen(String user){
+        int level = 0;
+        String sql = "select level from phongkham.tbl_login where user = '" + user + "';";
+        try{
+            Connection conn = getLoginConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                level = rs.getInt(1);
+            }
+            conn.close();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.toString(), "Error when get level of Account", 0);
+        }
+        return level;
     }
     
 }

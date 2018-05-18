@@ -11,7 +11,7 @@ package OBJECT;
  */
 public class ThongTin {
     private int id;
-    private int sdt;
+    private String sdt;
     private String hoTen;
     private String diaChi;
     private int namSinh;
@@ -35,14 +35,14 @@ public class ThongTin {
     /**
      * @return the sdt
      */
-    public int getSdt() {
+    public String getSdt() {
         return sdt;
     }
 
     /**
      * @param sdt the sdt to set
      */
-    public void setSdt(int sdt) {
+    public void setSdt(String sdt) {
         this.sdt = sdt;
     }
 

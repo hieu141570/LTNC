@@ -20,6 +20,9 @@ public class BUSThongTin {
     public void edit(ThongTin t){
         dal.edit(t.getId(), t.getSdt(), t.getHoTen(), t.getDiaChi(), t.getNamSinh(), t.getEmail(), t.getGioiTinh());
     }
+    public void edit(String sdt, String hoTen, String diaChi, int namSinh, String email, String gioiTinh){
+        dal.edit(sdt, hoTen, diaChi, namSinh, email, gioiTinh);
+    }
     public void delete(int ID){
         dal.delete(ID);
     }

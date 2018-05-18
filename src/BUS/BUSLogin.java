@@ -23,4 +23,7 @@ public class BUSLogin {
     public int getMaxID(){
         return dal.getMaxID();
     }
+    public Login getAccount(int ID){
+        return dal.getAccount(ID);
+    }
 }

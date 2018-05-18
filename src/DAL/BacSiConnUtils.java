@@ -104,4 +104,25 @@ public class BacSiConnUtils {
         }
         return maKhoa;
     }
+    public BacSi getBacSi(int maBacSi){
+        BacSi bs = new BacSi();
+        String sql = "select * from phongkham.tbl_bac_si where maBS = '" + maBacSi + "';";
+        try{
+            Connection conn = getBacSiConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                bs.setMaBS(rs.getInt("maBS"));
+                bs.setLogin_ID(rs.getInt("tbl_login_ID"));
+                bs.setThongTinID(rs.getInt("tbl_thongtin_id"));
+                bs.setMakhoa(rs.getInt("tbl_khoa_id"));
+                bs.setTrinhDo(rs.getString("trinhDo"));
+            }
+            conn.close();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.toString(), "Error when get doctor", 0);
+        }
+        return bs;
+    }
 }
