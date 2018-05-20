@@ -19,12 +19,22 @@ import OBJECT.Login;
 import OBJECT.Medicine;
 import OBJECT.ThongTin;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.ActiveEvent;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.write.Number;
 
 /**
  *
@@ -42,7 +52,7 @@ public class MainForm extends javax.swing.JFrame {
         showMedicine();
         showDuocSi();
     }
-
+    private BacSi bacSi = new BacSi();
     private void showBacSi() {
         DefaultTableModel model = (DefaultTableModel) gridBacSi.getModel();
         model.setRowCount(0);
@@ -88,8 +98,8 @@ public class MainForm extends javax.swing.JFrame {
             });
         }
     }
-    
-    private void showMedicine(){
+
+    private void showMedicine() {
         DefaultTableModel model = (DefaultTableModel) gridMedicine.getModel();
         model.setRowCount(0);
         BUSMedicine busMedi = new BUSMedicine();
@@ -106,28 +116,29 @@ public class MainForm extends javax.swing.JFrame {
             });
         }
     }
-      private void showDuocSi(){
-        DefaultTableModel model = (DefaultTableModel)gridDuocSi.getModel();
+
+    private void showDuocSi() {
+        DefaultTableModel model = (DefaultTableModel) gridDuocSi.getModel();
         model.setRowCount(0);
         BUSDuocSi ds = new BUSDuocSi();
         BUSThongTin busTT = new BUSThongTin();
         ThongTin t = new ThongTin();
-          ArrayList<DuocSi> listDuocSi = ds.getDataSource();
-        for(DuocSi ts : listDuocSi){
+        ArrayList<DuocSi> listDuocSi = ds.getDataSource();
+        for (DuocSi ts : listDuocSi) {
             t = busTT.getThongTin(ts.getThongTinID());
             model.addRow(new Object[]{
-            ts.getMaDuocSi(),
-            t.getHoTen(),
-            t.getNamSinh(),
-            t.getSdt(),
-            t.getDiaChi(),
-            t.getEmail(),
-            t.getGioiTinh(),
-            ts.getLoginID()
-            
+                ts.getMaDuocSi(),
+                t.getHoTen(),
+                t.getNamSinh(),
+                t.getSdt(),
+                t.getDiaChi(),
+                t.getEmail(),
+                t.getGioiTinh(),
+                ts.getLoginID()
+
             });
         }
-      }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -191,6 +202,7 @@ public class MainForm extends javax.swing.JFrame {
         jLabel47 = new javax.swing.JLabel();
         tbUnitType = new javax.swing.JTextField();
         jLabel48 = new javax.swing.JLabel();
+        btnImport = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -521,6 +533,13 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel48.setText("Quy cách");
 
+        btnImport.setText("Import");
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -543,6 +562,8 @@ public class MainForm extends javax.swing.JFrame {
                                     .addComponent(tbNhaSanXuat)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnImport)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAddMedicine)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEditMedicine)
@@ -598,11 +619,12 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDeleteMedicine)
                     .addComponent(btnEditMedicine)
-                    .addComponent(btnAddMedicine))
+                    .addComponent(btnAddMedicine)
+                    .addComponent(btnImport))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Quản lý đơn thuốc", jPanel6);
+        jTabbedPane1.addTab("Quản lý kho thuốc", jPanel6);
 
         gridBacSi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1042,33 +1064,44 @@ public class MainForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private Boolean checkNullBS() {
+        Boolean chk = true;
+        if (tbHoTenBS.getText().trim().isEmpty() && tbNamSinhBS.getText().trim().isEmpty() && tbEmailBS.getText().trim().isEmpty() && tbSdtBS.getText().trim().isEmpty()) {
+            chk = false;
+        }
+        return chk;
+    }
     private void btnAddBSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBSActionPerformed
-
-        BUSBacSi busBacSi = new BUSBacSi();
-        BacSi bs = new BacSi();
-        BUSThongTin busTT = new BUSThongTin();
-        Login l = new Login();
-        BUSLogin busLogin = new BUSLogin();
-        ThongTin t = new ThongTin();
-        //get Data
-        t.setDiaChi(tbAddrBN.getText());
-        t.setEmail(tbEmailBS.getText());
-        t.setGioiTinh(cbGioiTinhBN.getSelectedItem().toString());
-        t.setHoTen(tbHoTenBS.getText());
-        t.setNamSinh(Integer.parseInt(tbNamSinhBS.getText()));
-        t.setSdt(tbSdtBS.getText());
-        busTT.add(t);
-        bs.setThongTinID(busTT.getMaxID());
-        l.setLevel(2);
-        l.setUser(tbUser.getText());
-        l.setPasswd(tbPassword.getText());
-        busLogin.add(l);
-        bs.setLogin_ID(busLogin.getMaxID());
-        bs.setTrinhDo(tbTrinhdoBS.getText());
-        bs.setMakhoa(cbKhoa.getSelectedIndex());
-        busBacSi.add(bs); //add to database
-        showBacSi();
+        if(checkNullBS()){
+            System.out.println(checkNullBS());
+            BUSBacSi busBacSi = new BUSBacSi();
+            BacSi bs = new BacSi();
+            BUSThongTin busTT = new BUSThongTin();
+            Login l = new Login();
+            BUSLogin busLogin = new BUSLogin();
+            ThongTin t = new ThongTin();
+            //get Data
+            t.setDiaChi(tbAddrBN.getText());
+            t.setEmail(tbEmailBS.getText());
+            t.setGioiTinh(cbGioiTinhBN.getSelectedItem().toString());
+            t.setHoTen(tbHoTenBS.getText());
+            t.setNamSinh(Integer.parseInt(tbNamSinhBS.getText()));
+            t.setSdt(tbSdtBS.getText());
+            busTT.add(t);
+            bs.setThongTinID(busTT.getMaxID());
+            l.setLevel(2);
+            l.setUser(tbUser.getText());
+            l.setPasswd(tbPassword.getText());
+            busLogin.add(l);
+            bs.setLogin_ID(busLogin.getMaxID());
+            bs.setTrinhDo(tbTrinhdoBS.getText());
+            bs.setMakhoa(cbKhoa.getSelectedIndex());
+            busBacSi.add(bs); //add to database
+            showBacSi();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Cần điền đủ thông tin vào các trường", "Warning", 1);
+        }
     }//GEN-LAST:event_btnAddBSActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -1086,9 +1119,12 @@ public class MainForm extends javax.swing.JFrame {
         t.setDiaChi(tbDiaChiBS.getText());
         t.setEmail(tbEmailBS.getText());
         t.setSdt(tbSdtBS.getText());
+        t.setId(bacSi.getThongTinID());
+        busTT.edit(t);
         bs.setTrinhDo(tbTrinhdoBS.getText());
         bs.setMakhoa(cbKhoa.getSelectedIndex());
         busBacSi.edit(bs);
+        showBacSi();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -1186,13 +1222,13 @@ public class MainForm extends javax.swing.JFrame {
         int maBS = Integer.parseInt(this.gridBacSi.getModel().getValueAt(rowId, 0).toString());
         System.out.println(maBS);
         BUSBacSi busBS = new BUSBacSi();
-        BacSi bs = busBS.getBacSi(maBS);
-        System.out.println(bs.getMaBS());
+        bacSi = busBS.getBacSi(maBS);
+        //System.out.println(bs.getMaBS());
         BUSThongTin busTT = new BUSThongTin();
-        ThongTin t = busTT.getThongTin(bs.getThongTinID());
+        ThongTin t = busTT.getThongTin(bacSi.getThongTinID());
         BUSLogin busLogin = new BUSLogin();
-        Login l = busLogin.getAccount(bs.getLogin_ID());
-        tbMaBS.setText(Integer.toString(bs.getMaBS()));
+        Login l = busLogin.getAccount(bacSi.getLogin_ID());
+        tbMaBS.setText(Integer.toString(bacSi.getMaBS()));
         tbHoTenBS.setText(t.getHoTen());
         tbNamSinhBS.setText(Integer.toString(t.getNamSinh()));
         tbSdtBS.setText(t.getSdt());
@@ -1201,8 +1237,8 @@ public class MainForm extends javax.swing.JFrame {
         tbPassword.setText(l.getPasswd());
         cbGioiTinh.setSelectedItem(t.getGioiTinh());
         tbEmailBS.setText(t.getEmail());
-        cbKhoa.setSelectedIndex(bs.getMakhoa());
-        tbTrinhdoBS.setText(bs.getTrinhDo());
+        cbKhoa.setSelectedIndex(bacSi.getMakhoa());
+        tbTrinhdoBS.setText(bacSi.getTrinhDo());
     }//GEN-LAST:event_gridBacSiMouseClicked
 
     private void btLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogoutActionPerformed
@@ -1225,12 +1261,22 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_gridMedicineMouseClicked
 
     private void btnAddMedicineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMedicineActionPerformed
-        
+
     }//GEN-LAST:event_btnAddMedicineActionPerformed
 
     private void gridDuocSiClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridDuocSiClicked
-        
+
     }//GEN-LAST:event_gridDuocSiClicked
+
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
+        File f = new File("D:\\F\\Java\\QuanLyPhongKham\\template");
+        Desktop d = Desktop.getDesktop();
+        try {
+            d.open(f);
+        } catch (IOException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnImportActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1285,6 +1331,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEditBN;
     private javax.swing.JButton btnEditMedicine;
+    private javax.swing.JButton btnImport;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSort;
     private javax.swing.JComboBox<String> cbGioiTinh;

@@ -464,8 +464,8 @@
         <Container class="javax.swing.JPanel" name="jPanel6">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Qu&#x1ea3;n l&#xfd; &#x111;&#x1a1;n thu&#x1ed1;c">
-                <Property name="tabTitle" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; &#x111;&#x1a1;n thu&#x1ed1;c"/>
+              <JTabbedPaneConstraints tabName="Qu&#x1ea3;n l&#xfd; kho thu&#x1ed1;c">
+                <Property name="tabTitle" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; kho thu&#x1ed1;c"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -494,6 +494,8 @@
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="btnImport" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnAddMedicine" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnEditMedicine" min="-2" max="-2" attributes="0"/>
@@ -567,6 +569,7 @@
                           <Component id="btnDeleteMedicine" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnEditMedicine" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnAddMedicine" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnImport" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -714,6 +717,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quy c&#xe1;ch"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnImport">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Import"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImportActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

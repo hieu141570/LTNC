@@ -19,7 +19,7 @@ public class BUSBacSi {
         dal.add(bs.getLogin_ID(), bs.getThongTinID(), bs.getMakhoa(), bs.getTrinhDo());
     }
     public void edit(BacSi bs){
-        dal.edit(bs.getMaBS(), bs.getLogin_ID(), bs.getThongTinID(), bs.getMakhoa(), bs.getTrinhDo());
+        dal.edit(bs.getMaBS(), bs.getMakhoa(), bs.getTrinhDo());
     }
     public void delete(BacSi bs){
         dal.delete(bs.getMaBS());

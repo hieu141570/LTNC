@@ -36,14 +36,12 @@ public class BacSiConnUtils {
             JOptionPane.showMessageDialog(null, ex.toString(), "Add Doctor Error", 0);
         }
     }
-    public void edit(int maBS, int loginID, int thongTinID, int maKhoa, String trinhDo){
+    public void edit(int maBS, int maKhoa, String trinhDo){
         try{
             Connection conn = getBacSiConnection();
             String sql = "update phongkham.tbl_bac_si set "
-                    + "tbl_login_ID = '" + loginID + "', "
-                    + "tbl_thongtin_id = '" + thongTinID + "', "
                         + "trinhdo = '" + trinhDo + "', "
-                        + "tb_khoa_maKhoa = '" + maKhoa + "', "
+                        + "tbl_khoa_id = '" + maKhoa + "' "
                         + "where maBS = '" + maBS + "';";
             Statement st = conn.createStatement();
             st.execute(sql);
