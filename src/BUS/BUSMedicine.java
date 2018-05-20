@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class BUSMedicine {
     MedicineConnUtils dal = new MedicineConnUtils();
     public void add(Medicine md){
-        dal.add(md.getId(), md.getTenThuoc(),md.getMaThuoc(), md.getNhaSanXuat(),md.getPackType(),md.getUnitType(),md.getUnitPerPackage(), md.getNsx(),md.getHsd());
+        dal.add(md.getId(), md.getTenThuoc(),md.getMaThuoc(), md.getNhaSanXuat(),md.getPackType(), md.getSoLuong(), md.getUnitType(),md.getUnitPerPackage(), md.getNsx(),md.getHsd());
     }
     public void edit(Medicine md){
         dal.edit(md.getId(), md.getTenThuoc(),md.getMaThuoc(), md.getNhaSanXuat(),md.getPackType(),md.getUnitType(),md.getUnitPerPackage(), md.getNsx(),md.getHsd());

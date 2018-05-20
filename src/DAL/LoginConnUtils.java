@@ -52,7 +52,7 @@ public class LoginConnUtils {
             String sql = "delete from phongkham.tbl_login where ID = '" + ID + "'";
             Connection conn = getLoginConnection();
             Statement st = conn.createStatement();
-            st.executeQuery(sql);
+            st.executeUpdate(sql);
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.toString(), "Error", 0);

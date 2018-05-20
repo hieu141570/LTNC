@@ -5,7 +5,7 @@
  */
 package OBJECT;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  *
@@ -19,8 +19,10 @@ public class Medicine {
     private String packType;
     private String unitType;
     private int unitPerPackage;
-    private LocalDate nsx;
-    private LocalDate hsd;
+    private Date nsx;
+    private Date hsd;
+    private int soLuong;
+    private int donGia;
 
     /**
      * @return the id
@@ -123,28 +125,56 @@ public class Medicine {
     /**
      * @return the nsx
      */
-    public LocalDate getNsx() {
+    public Date getNsx() {
         return nsx;
     }
 
     /**
      * @param nsx the nsx to set
      */
-    public void setNsx(LocalDate nsx) {
+    public void setNsx(Date nsx) {
         this.nsx = nsx;
     }
 
     /**
      * @return the hsd
      */
-    public LocalDate getHsd() {
+    public Date getHsd() {
         return hsd;
     }
 
     /**
      * @param hsd the hsd to set
      */
-    public void setHsd(LocalDate hsd) {
+    public void setHsd(Date hsd) {
         this.hsd = hsd;
+    }
+
+    /**
+     * @return the soLuong
+     */
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    /**
+     * @param soLuong the soLuong to set
+     */
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    /**
+     * @return the donGia
+     */
+    public int getDonGia() {
+        return donGia;
+    }
+
+    /**
+     * @param donGia the donGia to set
+     */
+    public void setDonGia(int donGia) {
+        this.donGia = donGia;
     }
 }

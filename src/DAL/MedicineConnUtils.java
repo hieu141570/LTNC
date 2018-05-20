@@ -27,15 +27,16 @@ public class MedicineConnUtils {
         return MySQLConnUtils.getMySQLConnection();
     }
 
-    public void add(int Id, String TenThuoc, String MaThuoc, String NhaSanXuat, String PackType, String UnitType, int UnitPerPackage, LocalDate Nsx, LocalDate Hsd) {
+    public void add(int Id, String TenThuoc, String MaThuoc, String NhaSanXuat, String PackType, int soLuong, String UnitType, int UnitPerPackage, Date Nsx, Date Hsd) {
         try {
             Connection conn = getMedicineConnection();
-            String sql = "insert into quanliphongkham.tbl_medicine (ID, tenThuoc, maThuoc,nhaSanXuat,packType,unitType,unitPerPackage,NSX,HSd) values ('"
+            String sql = "insert into phongkham.tbl_medicine (ID, tenThuoc, maThuoc,nhaSanXuat,packType,packNumber,unitType,unitPerPackage,NSX,HSd) values ('"
                     + Id + "', '"
                     + TenThuoc + "', '"
                     + MaThuoc + "', '"
                     + NhaSanXuat + "','"
                     + PackType + "','"
+                    + soLuong + "', '"
                     + UnitType + "','"
                     + UnitPerPackage + "','"
                     + Nsx + "','"
@@ -47,7 +48,7 @@ public class MedicineConnUtils {
         }
     }
 
-    public void edit(int Id, String TenThuoc, String MaThuoc, String NhaSanXuat, String PackType, String UnitType, int UnitPerPackage, LocalDate Nsx, LocalDate Hsd) {
+    public void edit(int Id, String TenThuoc, String MaThuoc, String NhaSanXuat, String PackType, String UnitType, int UnitPerPackage, Date Nsx, Date Hsd) {
         try {
             Connection conn = getMedicineConnection();
             String sql = "update into quanliphongkham.tbl_medicine set"
@@ -95,6 +96,10 @@ public class MedicineConnUtils {
                 md.setPackType(rs.getString("PackType"));
                 md.setUnitType(rs.getString("UnitType"));
                 md.setUnitPerPackage(rs.getInt("UnitPerPackage"));
+                md.setDonGia(rs.getInt("price"));
+                md.setSoLuong(rs.getInt("packNumber"));
+                md.setNsx(rs.getDate("NSX"));
+                md.setHsd(rs.getDate("HSD"));
 
                 listMD.add(md);
             }
@@ -118,6 +123,10 @@ public class MedicineConnUtils {
                 md.setPackType(rs.getString("PackType"));
                 md.setUnitType(rs.getString("UnitType"));
                 md.setUnitPerPackage(rs.getInt("UnitPerPackage"));
+                md.setDonGia(rs.getInt("price"));
+                md.setSoLuong(rs.getInt("packNumber"));
+                md.setNsx(rs.getDate("NSX"));
+                md.setHsd(rs.getDate("HSD"));
             }
             conn.close();
         }

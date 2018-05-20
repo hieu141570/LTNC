@@ -29,11 +29,14 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import jxl.write.Number;
 
 /**
@@ -112,7 +115,11 @@ public class MainForm extends javax.swing.JFrame {
                 m.getNhaSanXuat(),
                 m.getPackType(),
                 m.getUnitType(),
-                m.getUnitPerPackage()
+                m.getUnitPerPackage(),
+                m.getDonGia(),
+                m.getSoLuong(),
+                m.getNsx(),
+                m.getHsd()
             });
         }
     }
@@ -229,7 +236,7 @@ public class MainForm extends javax.swing.JFrame {
         btnSearch = new javax.swing.JButton();
         btnAddBS = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
+        btnDeleteBS = new javax.swing.JButton();
         tbTrinhdoBS = new javax.swing.JTextField();
         tbEmailBS = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
@@ -519,7 +526,7 @@ public class MainForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Tên thuốc", "Mã thuốc", "Nhà sản xuất", "Quy cách đống gói", "Đơn vị", "đv/gói", "NSX", "HSD"
+                "ID", "Tên thuốc", "Mã thuốc", "Nhà sản xuất", "Quy cách đống gói", "Đơn vị", "đv/gói", "Đơn giá", "Số lượng", "NXS", "HSD"
             }
         ));
         gridMedicine.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -681,10 +688,10 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        btnDelete.setText("Xóa");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteBS.setText("Xóa");
+        btnDeleteBS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+                btnDeleteBSActionPerformed(evt);
             }
         });
 
@@ -763,7 +770,7 @@ public class MainForm extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnDelete)))))
+                                        .addComponent(btnDeleteBS)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -795,7 +802,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(btnAddBS)
                     .addComponent(btnEdit)
-                    .addComponent(btnDelete))
+                    .addComponent(btnDeleteBS))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1127,9 +1134,22 @@ public class MainForm extends javax.swing.JFrame {
         showBacSi();
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    private void btnDeleteBSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteBSActionPerformed
+        BUSBacSi busBS = new BUSBacSi();
+        BUSThongTin busTT = new BUSThongTin();
+        BUSLogin busLogin = new BUSLogin();
+        busBS.delete(bacSi.getMaBS());
+        busTT.delete(bacSi.getThongTinID());
+        busLogin.delete(bacSi.getLogin_ID());
+        showBacSi();
+        tbMaBS.setText("");
+        tbHoTenBS.setText("");
+        tbNamSinhBS.setText("");
+        tbSdtBS.setText("");
+        tbDiaChiBS.setText("");
+        tbTrinhdoBS.setText("");
+        tbEmailBS.setText("");
+    }//GEN-LAST:event_btnDeleteBSActionPerformed
 
     private void btnAddBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBNActionPerformed
         BUSBenhNhan busBN = new BUSBenhNhan();
@@ -1269,11 +1289,37 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_gridDuocSiClicked
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-        File f = new File("D:\\F\\Java\\QuanLyPhongKham\\template");
-        Desktop d = Desktop.getDesktop();
+        File f = new File("D:\\F\\Java\\QuanLyPhongKham\\template\\QuanLyNhapThuoc.xls");
+        ArrayList<Medicine> listMedi = new ArrayList<>();
+        String arr[] = new String[10];
+        BUSMedicine busMedi = new BUSMedicine();
         try {
-            d.open(f);
+            Workbook wb = Workbook.getWorkbook(f);
+            Sheet s = wb.getSheet(0);
+            for(int i = 1; i < s.getRows(); i++){
+                for(int j = 1; j < s.getColumns(); j++){
+                    Cell c = s.getCell(j, i);
+                    arr[j] = c.getContents();
+                }
+                System.out.println();
+                Medicine m = new Medicine();
+                m.setTenThuoc(arr[1]);
+                m.setMaThuoc(arr[2]);
+                m.setNhaSanXuat(arr[3]);
+                m.setUnitType(arr[4]);
+                m.setPackType(arr[5]);
+                m.setUnitPerPackage(Integer.parseInt(arr[6]));
+                m.setSoLuong(Integer.parseInt(arr[7]));
+                m.setNsx(Date.valueOf(arr[8]));
+                m.setHsd(Date.valueOf(arr[9]));
+                listMedi.add(m);
+            }
+            for(Medicine m : listMedi){
+                busMedi.add(m);
+            }
         } catch (IOException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BiffException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnImportActionPerformed
@@ -1325,8 +1371,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnAddBN;
     private javax.swing.JButton btnAddBS;
     private javax.swing.JButton btnAddMedicine;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDeleteBN;
+    private javax.swing.JButton btnDeleteBS;
     private javax.swing.JButton btnDeleteMedicine;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEditBN;

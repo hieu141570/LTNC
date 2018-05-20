@@ -26,4 +26,7 @@ public class BUSLogin {
     public Login getAccount(int ID){
         return dal.getAccount(ID);
     }
+    public void delete(int ID){
+        dal.delete(ID);
+    }
 }

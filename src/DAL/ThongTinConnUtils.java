@@ -22,9 +22,10 @@ public class ThongTinConnUtils {
     }
     
     public void add(String sdt, String hoTen, String diaChi, int namSinh, String gioiTinh, String email){
-        String sql = "insert into phongkham.tbl_thongtin(hoten, diachi, namsinh, email, gioiTinh) values('"
+        String sql = "insert into phongkham.tbl_thongtin(hoten, diachi, sdt, namsinh, email, gioiTinh) values('"
                 + hoTen + "', '"
                 + diaChi + "', '"
+                + sdt + "', '"
                 + namSinh + "', '"
                 + email + "', '"
                 + gioiTinh + "');";
