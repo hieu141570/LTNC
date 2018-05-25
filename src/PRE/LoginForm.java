@@ -137,12 +137,14 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         Login l = new Login();
         BUS.BUSLogin busLogin = new BUSLogin();
-        MainForm mf = new MainForm();
+        //MainForm mf = new MainForm();
         l.setUser(txtAcc.getText());
         l.setPasswd(txtPass.getText());
         if(busLogin.checkLogin(l)){
+            MainForm mf = new MainForm(busLogin.phanQuyen(l.getUser()));
+            System.out.println(busLogin.phanQuyen(l.getUser()));
             this.hide();
-           mf.show();    
+            mf.show();   
         }
         else
             JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu không đúng!", "Error", 0, null);

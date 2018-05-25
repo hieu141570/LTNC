@@ -29,4 +29,7 @@ public class BUSLogin {
     public void delete(int ID){
         dal.delete(ID);
     }
+    public int phanQuyen(String user){
+        return dal.phanQuyen(user);
+    }
 }

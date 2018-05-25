@@ -76,11 +76,11 @@ public class ThongTinConnUtils {
         }
     }
     public void delete(int ID){
-        String sql = "delete phongkham.tbl_thongtin where id = '" + ID + "';";
+        String sql = "delete from phongkham.tbl_thongtin where id = '" + ID + "';";
         try{
             Connection conn = getThongTinConnection();
             Statement st = conn.createStatement();
-            st.executeUpdate(sql);
+            st.execute(sql);
             conn.close();
         }
         catch(Exception ex){
